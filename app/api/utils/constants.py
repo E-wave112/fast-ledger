@@ -1,0 +1,17 @@
+USER_NOT_FOUND = "user not found!"
+ACCOUNT_NOT_FOUND = "account not found!"
+SOURCE_ACCOUNT_NOT_FOUND = "source account not found!"
+DESTINATION_ACCOUNT_NOT_FOUND = "destination account not found!"
+INSUFFICIENT_FUNDS = "withdrawal failed, you must have at least 10 tokens in your account after withdrawal"
+DUPLICATE_ACCOUNT_IDS = "oops, you cannot fund your own account, try funding to another account of yours if you have more than one set up"
+NO_LINKED_ACCOUNTS = "no accounts linked to this user"
+EMPTY_USER_TABLE = "oops, there are no users at the moment"
+RESOURCE_NOT_FOUND = "resource not found!"
+ACCOUNT_CREATION_LIMIT = (
+    "you have reached the maximum number of accounts you can create (which is 10)"
+)
+NOT_USER_ACCOUNTS = "oops, either one of these accounts does not exist, or you are trying to transfer to another user"
+# CANNOT_FUND_SAME_ACCOUNT="you cannot fund your source account id, try funding to another account of yours if you have more than one set up"
+EMAIL_REGEX = "^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$"
+PHONE_NUMBER_REGEX = "^[0-9]{11}$"
+USER_ALREADY_EXISTS = "user already exists!"
