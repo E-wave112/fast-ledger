@@ -6,32 +6,22 @@ a simple ledger system developed with fastapi
 - users can create up to to ten(10) different accounts.
 - Abilities for users to be able to fund and withdraw money to their accounts.
 - users can transfer funds to other users and their own accounts.
+- users mush have at least 10 ```tokens``` in their accounts
 
-- Live URL [here](https://b-wallets.herokuapp.com/api/v1)
-- Find the API documentation [here](https://documenter.getpostman.com/view/11690328/Uz5KkEQF)
+
+- Find the API documentation [here](https://ledger-app.herokuapp.com/docs)
 
 
 ### Install Pacakges
 
 ```
-$ pip install
+$ pip install -r requirements.txt
 
 ```
-or
 
-```
-$ yarn
-
-```
 Then you can then finally start the development server with the command
 
 ```
-$ npm run start:dev
-
-```
-or
-
-```
-$ yarn start:dev
+$ uvicorn application:app --reload
 
 ```
