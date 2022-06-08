@@ -9,3 +9,5 @@ requests
 databases[postgresql]
 psycopg2-binary
 pytest
+httptools
+uvloop
