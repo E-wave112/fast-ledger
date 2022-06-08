@@ -31,3 +31,4 @@ Then you can then finally start the development server with the command
 $ uvicorn application:app --reload
 
 ```
+- The api will be running on host [localhost:8000](http://localhost:8000)
