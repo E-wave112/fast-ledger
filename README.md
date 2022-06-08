@@ -7,6 +7,7 @@ a simple ledger system developed with fastapi
 - Abilities for users to be able to fund and withdraw money to their accounts.
 - users can transfer funds to other users and to their own accounts.
 - users mush have at least 10 ```tokens``` in their accounts
+- checkout the live API documentation [here](https://ledger-app.herokuapp.com/docs)
 
 ### Getting Started 
 To get started with the project, ensure you have setup and activated a virtual environment, guides on that [here](https://realpython.com/python-virtual-environments-a-primer/)
