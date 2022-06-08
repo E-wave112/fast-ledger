@@ -8,7 +8,7 @@ from app.api.ledger.dto.schema import (
     UpdateAccount,
 )
 from app.api.models.db import ledger, database
-from typing import Any, List, Union
+from typing import Any, Dict, List, Union
 from sqlalchemy import update, select
 from app.api.user.views.view_users import get_user
 from app.api.utils.not_found import base_response
@@ -47,7 +47,18 @@ async def get_single_account(account_id: int) -> GetAccount:
     """
     this method gets the detail of a single account
     """
-    query = select(ledger).where(ledger.c.id == account_id)
+    query = ledger.select().where(ledger.c.id == account_id)
+    result = await database.fetch_one(query)
+    if not result:
+        return base_response(ACCOUNT_NOT_FOUND)
+    return result
+
+
+async def get_single_account_id(account_id: str) -> GetAccount:
+    """
+    this method gets the detail of a single account by their account uuid
+    """
+    query = ledger.select().where(ledger.c.account_id == account_id)
     result = await database.fetch_one(query)
     if not result:
         return base_response(ACCOUNT_NOT_FOUND)
@@ -70,10 +81,13 @@ async def check_account_balance(account_id: int, amount: Union[int, float]) -> b
     this method ensures the user does not exceed his transfer or debit limit
     """
     account = await get_single_account(account_id)
+    account = dict(account)
     if account == base_response(ACCOUNT_NOT_FOUND):
         return account
     # check if the user's account has at least 10 tokens
-    if int(account.balance - amount) < 10:
+    if bool(account["balance"]) == False:
+        return False
+    if int(account["balance"] - amount) < 10:
         return False
     return True
 
@@ -122,11 +136,11 @@ async def transfer_funds(payload: TransferFund):
     """
     check_balance = await check_account_balance(payload.account_id, payload.amount)
     if not check_balance:
-        return {"message": INSUFFICIENT_FUNDS}
+        return base_response(INSUFFICIENT_FUNDS)
     query_first_account = await get_single_account(payload.account_id)
     if query_first_account == base_response(ACCOUNT_NOT_FOUND):
         return base_response(SOURCE_ACCOUNT_NOT_FOUND)
-    query_second_account = await get_single_account(payload.destination_id)
+    query_second_account = await get_single_account_id(payload.destination_id)
     if query_second_account == base_response(ACCOUNT_NOT_FOUND):
         return base_response(DESTINATION_ACCOUNT_NOT_FOUND)
 
@@ -134,7 +148,8 @@ async def transfer_funds(payload: TransferFund):
         return {"message": DUPLICATE_ACCOUNT_IDS}
     # update the first and second account
     first_account_amount = {"balance": query_first_account.balance - payload.amount}
-    second_account_amount = {"balance": query_second_account.balance - payload.amount}
+    second_account_amount = {"balance": query_second_account.balance + payload.amount}
+    print(first_account_amount, second_account_amount)
     update_first_account = await update_account(
         query_first_account.id, first_account_amount
     )
@@ -181,18 +196,15 @@ async def transfer_funds_same_user(payload: TransferSameUser):
     update_second_account = await update_account(
         query_first_account.id, second_account_amount
     )
-    return {
-        "message": "transfer success",
-        "data": {update_first_account["data"], update_second_account["data"]},
-    }
+    return {"message": "transfer success"}
 
 
-async def update_account(id: int, payload: UpdateAccount):
+async def update_account(id: int, payload: Union[UpdateAccount, Dict]):
     """
     this method helps to update the information of an account
     """
     account = await get_single_account(id)
-    # payload = payload.dict(exclude_unset=True)
+    # payload_data = payload.dict(exclude_unset=True)
     query = update(ledger).where(ledger.c.id == account.id).values(**payload)
     await database.execute(query)
     return {"message": "account updated successfully !"}

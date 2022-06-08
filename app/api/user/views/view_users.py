@@ -51,7 +51,7 @@ async def get_user(id: int) -> GetUser:
 
 async def update_user(id: int, payload: UpdateUser):
     user = await get_user(id)
-    if user == base_response():
+    if user == base_response(USER_NOT_FOUND):
         return base_response(USER_NOT_FOUND)
 
     payload_data = payload.dict(exclude_unset=True)
