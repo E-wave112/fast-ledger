@@ -4,8 +4,7 @@ gunicorn==20.1.0
 pydantic==1.9.1
 python-decouple==3.6
 SQLAlchemy
-starlette==0.14.2
-uvicorn
+uvicorn==0.13.4
 requests
 databases[postgresql]
 psycopg2-binary
