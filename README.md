@@ -32,3 +32,4 @@ $ uvicorn application:app --reload
 
 ```
 - The api will be running on host [localhost:8000](http://localhost:8000)
+- access the documentation on [localhost:8000/docs](http://localhost:8000/docs)
