@@ -1,1 +1,1 @@
-worker: uvicorn application:app --port ${PORT}
+web: uvicorn application:app --port ${PORT}
