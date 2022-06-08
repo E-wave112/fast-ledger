@@ -17,7 +17,7 @@ from sqlalchemy import (
 from databases import Database
 
 # db config
-DATABASE_URI = config("DATABASE_URL")
+DATABASE_URI = config("DB_URI")
 
 
 metadata = MetaData()

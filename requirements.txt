@@ -1,6 +1,6 @@
 asyncpg
 fastapi==0.65.2
-gunicorn
+gunicorn==20.1.0
 pydantic==1.9.1
 python-decouple==3.6
 SQLAlchemy
