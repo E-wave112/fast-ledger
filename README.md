@@ -1,5 +1,5 @@
 # fast-ledger
-a simple ledger system developed with fastapi
+a simple ledger system developed with fastApi
 
 ### This API assumes the following functionalities and constraints
 - users can register on the platform
@@ -23,14 +23,12 @@ navigate to the directory of your virtual environment and install all the requir
 
 ```
 $ pip install -r requirements.txt
-
 ```
 
 Then you can then finally start the development server with the command
 
 ```
 $ uvicorn application:app --reload
-
 ```
 - The api will be running on host [localhost:8000](http://localhost:8000)
 - access the documentation on [localhost:8000/docs](http://localhost:8000/docs)
